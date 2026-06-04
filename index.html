@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elite Long-Limb & Fat Loss Program</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        dark: { 900: '#0a0a0f', 800: '#12121a', 700: '#1a1a26', 600: '#242436', 500: '#2e2e44' },
+        accent: { DEFAULT: '#6366f1', light: '#818cf8', dim: '#4f46e5' },
+        teal: { DEFAULT: '#2dd4bf', dark: '#14b8a6' },
+        amber: { DEFAULT: '#f59e0b', light: '#fbbf24' },
+        rose: { DEFAULT: '#f43f5e' }
+      }
+    }
+  }
+}
+</script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+* { font-family: 'Inter', sans-serif; }
+body { background: #0a0a0f; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #12121a; }
+::-webkit-scrollbar-thumb { background: #4f46e5; border-radius: 3px; }
+
+.card-glow { box-shadow: 0 0 0 1px rgba(99,102,241,0.1), 0 4px 24px rgba(0,0,0,0.4); }
+.card-glow:hover { box-shadow: 0 0 0 1px rgba(99,102,241,0.3), 0 8px 32px rgba(99,102,241,0.1); }
+.day-card { transition: all 0.3s cubic-bezier(0.4,0,0.2,1); cursor: pointer; }
+.day-card:hover { transform: translateY(-2px); }
+.day-card.active { ring: 2px solid #6366f1; }
+.tab-btn { transition: all 0.2s; }
+.tab-btn.active { background: linear-gradient(135deg, #6366f1, #4f46e5); color: white; }
+
+@keyframes slideDown { from { opacity:0; max-height:0; } to { opacity:1; max-height:2000px; } }
+.slide-down { animation: slideDown 0.4s ease forwards; overflow: hidden; }
+
+@keyframes pulse-glow { 0%,100% { box-shadow: 0 0 8px rgba(45,212,191,0.3); } 50% { box-shadow: 0 0 20px rgba(45,212,191,0.6); } }
+.pulse-glow { animation: pulse-glow 2s infinite; }
+
+.progress-bar { transition: width 1s cubic-bezier(0.4,0,0.2,1); }
+
+.tooltip-container { position: relative; }
+.tooltip-container .tooltip-text {
+  visibility: hidden; opacity: 0; position: absolute; z-index: 50;
+  bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+  background: #1a1a26; border: 1px solid rgba(99,102,241,0.3);
+  padding: 10px 14px; border-radius: 8px; font-size: 12px; color: #c4b5fd;
+  width: 280px; text-align: left; transition: all 0.2s; line-height: 1.5;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+}
+.tooltip-container:hover .tooltip-text { visibility: visible; opacity: 1; }
+
+.superset-stripe { border-left: 3px solid #f59e0b; }
+.standalone-stripe { border-left: 3px solid #6366f1; }
+
+.nutrition-toggle { position: relative; width: 240px; height: 44px; background: #1a1a26; border-radius: 22px; border: 1px solid rgba(99,102,241,0.2); }
+.nutrition-toggle .slider { position: absolute; top: 3px; height: 38px; border-radius: 19px; background: linear-gradient(135deg, #6366f1, #4f46e5); transition: all 0.3s; }
+.nutrition-toggle label { position: relative; z-index: 2; cursor: pointer; }
+</style>
+</head>
+<body class="text-gray-200 min-h-screen">
+
+<!-- APP DATA -->
+<script>
+const APP_DATA = {
+  app_metadata: {
+    program_name: "The Elite Long-Limb & Fat Loss Program Blueprint",
+    user_profile: { age: 36, height_cm: 190, weight_kg: 90, biotype: "Ectomorph/Mesomorph hybrid" },
+    primary_objectives: [
+      "Eliminate belly fat and love handles",
+      "Build full, muscular arms on a long frame",
+      "Achieve an athletic, dense, slightly buff aesthetic"
+    ]
+  },
+  tempo_guide: {
+    format: "Eccentric - Pause/Stretch - Concentric - Squeeze",
+    example: "3s controlled lower, 1s full stretch pause, Explode up, 1s peak squeeze"
+  },
+  schedule: [
+    { day:"Monday", type:"Rest", title:"Full Recovery & Mobility", action:"10-minute deep stretching/foam rolling for hamstrings, lats, and chest." },
+    { day:"Tuesday", type:"Cardio/Core", title:"Fasted Love-Handle Crusher", action:"Morning fasted Zone 2 cardio + core isolation block." },
+    { day:"Wednesday", type:"Rest", title:"Muscle Tissue Repair", action:"Full recovery. Focus on complete protein saturation and low stress." },
+    { day:"Thursday", type:"Workout", title:"Upper Body: Heavy Push & Triceps", action:"Morning strength-hypertrophy hybrid." },
+    { day:"Friday", type:"Workout", title:"Lower Body: Strength & Calves", action:"Morning heavy compound leg tracking." },
+    { day:"Saturday", type:"Workout", title:"Hypertrophy Pull & Bicep Length", action:"Back width & brachialis/bicep focus." },
+    { day:"Sunday", type:"Workout", title:"Shoulders & High-Volume Arm Pump", action:"Fast 40-minute metabolic pump." }
+  ],
+  workouts: {
+    tuesday: {
+      session_type: "Fasted Cardio & Core", duration: 45, state: "Fasted (Black coffee or water + sea salt)",
+      exercises: [
+        { name:"Zone 2 Metabolic Cardio", superset_id:null, target_metrics:"35–45 min | Incline Treadmill (10–12%) or Cycle", tempo:"N/A", heart_rate_target:"120–130 BPM", ui_tips:"Keep insulin low. Conversational pace, do not sprint.", video:"https://www.youtube.com/watch?v=nOd-tc8CRWM" },
+        { name:"Hanging Knee Raises", superset_id:null, sets:4, reps:15, tempo:"2-0-2-1", rest_seconds:45, ui_tips:"Flatten lower back, curl pelvis upward for lower abs.", video:"https://www.youtube.com/watch?v=G6a5267YpHM" }
+      ]
+    },
+    thursday: {
+      session_type: "Upper Body Push & Tricep Specialization", duration: 50, state: "Post-Workout Fueling within 45 mins",
+      exercises: [
+        { name:"Flat Barbell Bench Press", superset_id:"Standalone", sets:4, reps:"6-8", target_weight:"70–75kg", tempo:"3-0-X-0", rest_seconds:120, ui_tips:"Pin shoulder blades back/down. 3s lower, no bounce.", video:"https://www.youtube.com/watch?v=4Y2ZdHCOXok" },
+        { name:"Incline Dumbbell Press (30°)", superset_id:"Superset 1A", sets:3, reps:"10-12", target_weight:"26–30kg DBs", tempo:"3-1-X-0", rest_seconds:0, ui_tips:"Elbows 45° — don't flare wide.", video:"https://www.youtube.com/watch?v=8iPEnn-ltC8" },
+        { name:"Overhead Cable Tricep Ext. (Rope)", superset_id:"Superset 1B", sets:3, reps:"12-15", target_weight:"Moderate", tempo:"3-1-X-1", rest_seconds:90, ui_tips:"Face away. Elbows locked by ears. Deep stretch.", video:"https://www.youtube.com/watch?v=GzmlxvSFE7A" },
+        { name:"OH Dumbbell Shoulder Press", superset_id:"Superset 2A", sets:3, reps:"8-10", target_weight:"22–24kg DBs", tempo:"2-0-X-0", rest_seconds:0, ui_tips:"Brace core. Natural arc, no clanking.", video:"https://www.youtube.com/watch?v=qEwKCR5JCog" },
+        { name:"Tricep Rope Pushdowns", superset_id:"Superset 2B", sets:3, reps:"12 (Drop set final)", target_weight:"Moderate-Heavy", tempo:"2-0-X-1", rest_seconds:90, ui_tips:"Elbows glued to ribs. Flare hands past hips at lockout.", video:"https://www.youtube.com/watch?v=d-ySLTHUgQA" }
+      ]
+    },
+    friday: {
+      session_type: "Lower Body Strength", duration: 45, state: "Fasted — Dynamic hip & ankle warm-up",
+      exercises: [
+        { name:"Barbell Squat (Wk A) / Deadlift (Wk B)", superset_id:"Standalone", sets:4, reps:5, target_weight:"Squat 80–85kg | DL 95–100kg", tempo:"3-1-X-0", rest_seconds:180, ui_tips:"3s descent. Drive through heels.", video:"https://www.youtube.com/watch?v=4VIbxJE6KKQ" },
+        { name:"Weighted Walking Lunges", superset_id:"Standalone", sets:3, reps:"12 steps (6/leg)", target_weight:"16–20kg DBs/hand", tempo:"Controlled", rest_seconds:60, ui_tips:"Long strides. Lean forward slightly for glutes.", video:"https://www.youtube.com/watch?v=_DLIS8SySzs" },
+        { name:"DB Calf Raises (Step Edge)", superset_id:"Standalone", sets:4, reps:"15-20", target_weight:"24–30kg DB", tempo:"3-2-1-2", rest_seconds:60, ui_tips:"3s lower, 2s bottom stretch to kill Achilles bounce.", video:"https://www.youtube.com/watch?v=HvvqTpTongY" }
+      ]
+    },
+    saturday: {
+      session_type: "Hypertrophy Pull & Bicep Specialization", duration: 50, state: "High weekend energy window",
+      exercises: [
+        { name:"Weighted Pull-ups", superset_id:"Standalone", sets:4, reps:"5-6", target_weight:"BW + 5–10kg", tempo:"3-1-X-1", rest_seconds:120, ui_tips:"Dead hang start. Pull through elbows, 3s lower.", video:"https://www.youtube.com/watch?v=HuuyDNGrCI8" },
+        { name:"Single-Arm Dumbbell Row", superset_id:"Superset 4A", sets:3, reps:"8-10/arm", target_weight:"30–34kg DB", tempo:"3-0-X-1", rest_seconds:0, ui_tips:"Row toward hip crease, not chest.", video:"https://www.youtube.com/watch?v=dFzUjzfih7k" },
+        { name:"Incline Dumbbell Curls", superset_id:"Superset 4B", sets:3, reps:"10-12", target_weight:"12–14kg DBs", tempo:"3-1-X-1", rest_seconds:90, ui_tips:"45° bench. Arms hang behind torso. No elbow swing.", video:"https://www.youtube.com/watch?v=HhHHBj3qTJ4" },
+        { name:"Seated Cable Row (Wide)", superset_id:"Superset 5A", sets:3, reps:12, target_weight:"Moderate", tempo:"3-0-X-1", rest_seconds:0, ui_tips:"Pull to sternum. Squeeze shoulder blades hard.", video:"https://www.youtube.com/watch?v=SYZxuSSQ-hk" },
+        { name:"Cross-Body Hammer Curls", superset_id:"Superset 5B", sets:3, reps:"12/arm", target_weight:"14–16kg DBs", tempo:"2-1-X-1", rest_seconds:90, ui_tips:"Curl across torso toward opposite shoulder for brachialis.", video:"https://www.youtube.com/watch?v=D7SCEDbbcTs" }
+      ]
+    },
+    sunday: {
+      session_type: "Shoulders & High-Volume Arm Pump", duration: 40, state: "Pure aesthetic — rapid pace",
+      exercises: [
+        { name:"Dumbbell Lateral Raises", superset_id:"Superset 6A", sets:4, reps:15, target_weight:"8–10kg DBs", tempo:"2-0-X-1", rest_seconds:0, ui_tips:"Slight forward hinge. Drive outward, pinkies high.", video:"https://www.youtube.com/watch?v=4hTUCDUQaNA" },
+        { name:"Rear Delt Flyes (Bent Over)", superset_id:"Superset 6B", sets:4, reps:15, target_weight:"6–8kg DBs", tempo:"2-0-X-1", rest_seconds:60, ui_tips:"Back parallel to floor. Don't pinch shoulder blades.", video:"https://www.youtube.com/watch?v=Lec8GC1SiS8" },
+        { name:"EZ-Bar Skull Crushers", superset_id:"Finisher A", sets:3, reps:12, target_weight:"Moderate", tempo:"3-1-X-0", rest_seconds:0, ui_tips:"Tilt arms slightly back. Lower to skull, hold stretch.", video:"https://www.youtube.com/watch?v=NIWKqcmpBug" },
+        { name:"Cable Straight-Bar Curls", superset_id:"Finisher B", sets:3, reps:"12-15", target_weight:"Moderate", tempo:"2-0-X-2", rest_seconds:45, ui_tips:"Elbows glued. 2s peak squeeze every rep.", video:"https://www.youtube.com/watch?v=d7friQusjF8" }
+      ]
+    }
+  },
+  nutrition: {
+    macros: { protein: "180–200g", sugar_rule: "Zero refined sugar/alcohol", hydration: "Water + pink salt on waking" },
+    shake: { recipe: "Whey isolate + almond milk + raspberries + 1 tbsp PB", lifting: "Within 30–45 min post-workout", cardio: "Skip — prolong fat burn", rest: "Skip — solid food only" },
+    meals: {
+      breakfast: { lifting: "Post-Workout Signature Whey Shake", rest: "3-Egg Omelet w/ spinach or mushrooms + olive oil spray" },
+      lunch: { protein: "200g lean protein (chicken, turkey, fish, lean beef)", veggies: "Broccoli, asparagus, zucchini, green beans", lifting_carbs: "150g sweet potato, basmati rice, or quinoa", rest_carbs: "Zero carbs (or <50g) to accelerate fat loss" },
+      snack: { name: "The Casein Secret Weapon", desc: "2–3 pots Le Petit Suisse (0–2% fat)", extras: "Walnuts/almonds + heavy cinnamon", tip: "Slow-digesting casein drips aminos for hours, kills sugar cravings" },
+      dinner: { protein: "200g salmon, mackerel, fish, or chicken", veggies: "Unlimited green vegetables", fats: "1 tbsp EVOO", carb_rule: "Zero starches — keeps insulin flat for nighttime GH production" }
+    }
+  },
+  milestones: {
+    bench: { current: 90, target: 105, label: "Bench Press", increase: "16%" },
+    squat: { current: 100, target: 125, label: "Barbell Squat", increase: "25%" },
+    deadlift: { current: 120, target: 150, label: "Deadlift", increase: "25%" }
+  }
+};
+</script>
+
+<!-- HEADER -->
+<header class="sticky top-0 z-50 backdrop-blur-xl bg-dark-900/80 border-b border-white/5">
+  <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-accent to-teal flex items-center justify-center text-white font-black text-sm">EL</div>
+      <div>
+        <h1 class="text-sm font-bold text-white tracking-tight">Elite Long-Limb Program</h1>
+        <p class="text-[10px] text-gray-500 font-medium">v1.0 — 190cm · 90kg · Ecto-Meso</p>
+      </div>
+    </div>
+    <div class="flex gap-1">
+      <button onclick="switchTab('dashboard')" id="tab-dashboard" class="tab-btn active text-xs font-semibold px-4 py-2 rounded-full">Dashboard</button>
+      <button onclick="switchTab('nutrition')" id="tab-nutrition" class="tab-btn text-xs font-semibold px-4 py-2 rounded-full text-gray-400 hover:text-white">Nutrition</button>
+      <button onclick="switchTab('milestones')" id="tab-milestones" class="tab-btn text-xs font-semibold px-4 py-2 rounded-full text-gray-400 hover:text-white">Milestones</button>
+    </div>
+  </div>
+</header>
+
+<main class="max-w-6xl mx-auto px-4 py-6" id="app-main">
+
+  <!-- ===== DASHBOARD TAB ===== -->
+  <section id="section-dashboard">
+    <!-- Objectives -->
+    <div class="flex flex-wrap gap-2 mb-6">
+      <span class="text-[11px] font-semibold px-3 py-1.5 rounded-full bg-rose/10 text-rose border border-rose/20">🔥 Cut belly fat</span>
+      <span class="text-[11px] font-semibold px-3 py-1.5 rounded-full bg-accent/10 text-accent-light border border-accent/20">💪 Build long-frame arms</span>
+      <span class="text-[11px] font-semibold px-3 py-1.5 rounded-full bg-teal/10 text-teal border border-teal/20">⚡ Athletic dense aesthetic</span>
+    </div>
+
+    <!-- Weekly Calendar -->
+    <h2 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3">Weekly Schedule</h2>
+    <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2 mb-6" id="calendar-grid"></div>
+
+    <!-- Workout Detail Panel -->
+    <div id="workout-detail" class="hidden slide-down"></div>
+  </section>
+
+  <!-- ===== NUTRITION TAB ===== -->
+  <section id="section-nutrition" class="hidden">
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+      <div>
+        <h2 class="text-lg font-bold text-white">Nutrition Blueprint</h2>
+        <p class="text-xs text-gray-500 mt-0.5">Protein: <span class="text-teal font-semibold">180–200g/day</span> · Zero sugar/alcohol · Hydrate on waking with salt</p>
+      </div>
+      <div class="nutrition-toggle flex items-center" id="nutrition-toggle">
+        <div class="slider" id="toggle-slider" style="left:3px; width:118px;"></div>
+        <label onclick="setNutritionMode('lifting')" class="flex-1 text-center text-xs font-semibold py-2.5 z-10" id="label-lifting" style="color:white;">🏋️ Lifting Day</label>
+        <label onclick="setNutritionMode('rest')" class="flex-1 text-center text-xs font-semibold py-2.5 z-10 text-gray-400" id="label-rest">😴 Rest/Cardio</label>
+      </div>
+    </div>
+    <div id="nutrition-cards" class="grid sm:grid-cols-2 gap-3"></div>
+  </section>
+
+  <!-- ===== MILESTONES TAB ===== -->
+  <section id="section-milestones" class="hidden">
+    <h2 class="text-lg font-bold text-white mb-1">6-Month Strength Milestones</h2>
+    <p class="text-xs text-gray-500 mb-6">Progressive overload targets over 24 weeks</p>
+    <div class="grid gap-4" id="milestones-grid"></div>
+  </section>
+
+</main>
+
+<script>
+// ====== STATE ======
+let currentTab = 'dashboard';
+let selectedDay = null;
+let nutritionMode = 'lifting';
+
+// ====== TAB SWITCHING ======
+function switchTab(tab) {
+  currentTab = tab;
+  ['dashboard','nutrition','milestones'].forEach(t => {
+    document.getElementById('section-'+t).classList.toggle('hidden', t !== tab);
+    const btn = document.getElementById('tab-'+t);
+    btn.classList.toggle('active', t === tab);
+    btn.classList.toggle('text-gray-400', t !== tab);
+  });
+  if (tab === 'nutrition') renderNutrition();
+  if (tab === 'milestones') renderMilestones();
+}
+
+// ====== CALENDAR ======
+function renderCalendar() {
+  const grid = document.getElementById('calendar-grid');
+  grid.innerHTML = '';
+  const colors = {
+    Rest: { bg:'bg-gray-800/50', border:'border-gray-700/50', badge:'bg-gray-700 text-gray-400', dot:'bg-gray-500' },
+    'Cardio/Core': { bg:'bg-amber-950/20', border:'border-amber-800/30', badge:'bg-amber-900/50 text-amber-400', dot:'bg-amber-500' },
+    Workout: { bg:'bg-accent/5', border:'border-accent/20', badge:'bg-accent/20 text-accent-light', dot:'bg-accent' }
+  };
+  APP_DATA.schedule.forEach((d,i) => {
+    const c = colors[d.type];
+    const isActive = selectedDay === d.day.toLowerCase();
+    const el = document.createElement('div');
+    el.className = `day-card rounded-xl p-3 border ${c.bg} ${c.border} ${isActive ? 'ring-2 ring-accent' : ''}`;
+    el.onclick = () => selectDay(d.day.toLowerCase(), d.type);
+    el.innerHTML = `
+      <div class="flex items-center gap-1.5 mb-2">
+        <div class="w-2 h-2 rounded-full ${c.dot}"></div>
+        <span class="text-[10px] font-bold uppercase tracking-wider text-gray-400">${d.day.slice(0,3)}</span>
+      </div>
+      <span class="inline-block text-[9px] font-bold px-2 py-0.5 rounded-full ${c.badge} mb-1.5">${d.type}</span>
+      <p class="text-[11px] font-semibold text-white leading-tight">${d.title}</p>
+    `;
+    grid.appendChild(el);
+  });
+}
+
+// ====== DAY SELECTION ======
+function selectDay(day, type) {
+  selectedDay = selectedDay === day ? null : day;
+  renderCalendar();
+  const panel = document.getElementById('workout-detail');
+  if (!selectedDay) { panel.classList.add('hidden'); return; }
+
+  const workout = APP_DATA.workouts[selectedDay];
+  const scheduleItem = APP_DATA.schedule.find(s => s.day.toLowerCase() === selectedDay);
+  if (!workout) {
+    panel.classList.remove('hidden');
+    panel.innerHTML = `
+      <div class="card-glow rounded-2xl bg-dark-700 p-6 mt-2">
+        <h3 class="text-base font-bold text-white mb-1">${scheduleItem.title}</h3>
+        <p class="text-sm text-gray-400">${scheduleItem.action}</p>
+        <p class="text-xs text-gray-600 mt-3">No exercises scheduled — focus on recovery.</p>
+      </div>`;
+    return;
+  }
+
+  panel.classList.remove('hidden');
+  panel.innerHTML = `
+    <div class="card-glow rounded-2xl bg-dark-700 p-5 mt-2">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+        <div>
+          <h3 class="text-base font-bold text-white">${workout.session_type}</h3>
+          <p class="text-xs text-gray-500 mt-0.5">${workout.duration} min · ${workout.state}</p>
+        </div>
+        <div class="tooltip-container">
+          <span class="text-[10px] font-bold px-3 py-1.5 rounded-full bg-teal/10 text-teal border border-teal/20 cursor-help">ℹ️ Tempo Protocol</span>
+          <div class="tooltip-text">
+            <strong class="text-teal text-xs">Tempo Format:</strong><br>
+            <span class="text-white font-mono">Eccentric – Pause – Concentric – Squeeze</span><br><br>
+            <strong class="text-xs text-gray-300">Example 3-1-X-1:</strong><br>
+            3s controlled lower → 1s stretch pause → Explode up → 1s peak squeeze<br><br>
+            <em class="text-gray-500">Longer levers = slower eccentrics for max tension.</em>
+          </div>
+        </div>
+      </div>
+      <div class="space-y-2">
+        ${workout.exercises.map(ex => renderExerciseCard(ex)).join('')}
+      </div>
+    </div>`;
+}
+
+function renderExerciseCard(ex) {
+  const isSuperset = ex.superset_id && ex.superset_id !== 'Standalone';
+  const stripe = isSuperset ? 'superset-stripe' : 'standalone-stripe';
+  const badge = isSuperset
+    ? `<span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-amber-900/40 text-amber-400">${ex.superset_id}</span>`
+    : (ex.superset_id === 'Standalone' ? `<span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-accent/20 text-accent-light">Standalone</span>` : '');
+
+  const metrics = ex.sets
+    ? `<div class="flex flex-wrap gap-3 mt-2">
+        <span class="text-[11px] text-gray-400"><span class="text-white font-semibold">${ex.sets}</span> sets</span>
+        <span class="text-[11px] text-gray-400"><span class="text-white font-semibold">${ex.reps}</span> reps</span>
+        ${ex.target_weight ? `<span class="text-[11px] text-gray-400"><span class="text-teal font-semibold">${ex.target_weight}</span></span>` : ''}
+        ${ex.rest_seconds > 0 ? `<span class="text-[11px] text-gray-400">Rest: <span class="text-white font-semibold">${ex.rest_seconds}s</span></span>` : `<span class="text-[11px] text-amber-500 font-semibold">→ No rest, go!</span>`}
+       </div>`
+    : (ex.target_metrics ? `<p class="text-[11px] text-gray-400 mt-1">${ex.target_metrics}</p>` : '') +
+      (ex.heart_rate_target ? `<p class="text-[11px] text-rose font-semibold mt-1">❤️ ${ex.heart_rate_target}</p>` : '');
+
+  const tempoHtml = ex.tempo && ex.tempo !== 'N/A' && ex.tempo !== 'Controlled'
+    ? `<div class="tooltip-container inline-block ml-2">
+        <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-dark-500 text-teal cursor-help">${ex.tempo}</span>
+        <div class="tooltip-text">
+          <strong class="text-teal text-xs">Tempo: ${ex.tempo}</strong><br>
+          ${formatTempo(ex.tempo)}
+        </div>
+       </div>`
+    : (ex.tempo === 'Controlled' ? `<span class="text-[10px] font-mono px-2 py-0.5 rounded bg-dark-500 text-gray-400 ml-2">Controlled</span>` : '');
+
+  return `
+    <div class="rounded-xl bg-dark-800 p-3.5 ${stripe} hover:bg-dark-600 transition-colors">
+      <div class="flex items-center flex-wrap gap-2">
+        <h4 class="text-sm font-semibold text-white">${ex.name}</h4>
+        ${ex.video ? `<a href="${ex.video}" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-900/40 text-red-400 hover:bg-red-800/60 hover:text-red-300 transition-colors no-underline" title="Watch form tutorial">▶ Form</a>` : ''}
+        ${badge}${tempoHtml}
+      </div>
+      ${metrics}
+      <p class="text-[11px] text-gray-500 mt-2 leading-relaxed italic">💡 ${ex.ui_tips}</p>
+    </div>`;
+}
+
+function formatTempo(t) {
+  const parts = t.split('-');
+  const labels = ['Eccentric (lower)','Pause/Stretch','Concentric (lift)','Squeeze (peak)'];
+  return parts.map((p,i) => {
+    const val = p === 'X' ? 'Explosive' : p + 's';
+    return `<span class="text-white">${labels[i]}:</span> ${val}`;
+  }).join('<br>');
+}
+
+// ====== NUTRITION ======
+function setNutritionMode(mode) {
+  nutritionMode = mode;
+  const slider = document.getElementById('toggle-slider');
+  const ll = document.getElementById('label-lifting');
+  const lr = document.getElementById('label-rest');
+  if (mode === 'lifting') {
+    slider.style.left = '3px'; ll.style.color = 'white'; lr.style.color = '#6b7280';
+  } else {
+    slider.style.left = '121px'; lr.style.color = 'white'; ll.style.color = '#6b7280';
+  }
+  renderNutrition();
+}
+
+function renderNutrition() {
+  const m = APP_DATA.nutrition.meals;
+  const isLifting = nutritionMode === 'lifting';
+  const cards = document.getElementById('nutrition-cards');
+  cards.innerHTML = '';
+
+  const meals = [
+    {
+      time: '🌅 Breakfast', name: isLifting ? m.breakfast.lifting : m.breakfast.rest,
+      details: isLifting ? `${APP_DATA.nutrition.shake.recipe}<br><span class="text-teal text-[10px]">${APP_DATA.nutrition.shake.lifting}</span>` : 'Keeps insulin low — fasted fat burning.',
+      accent: isLifting ? 'border-accent/30' : 'border-teal/30'
+    },
+    {
+      time: '☀️ Lunch', name: m.lunch.protein,
+      details: `${m.lunch.veggies}<br>${isLifting ? `<span class="text-accent-light font-semibold">+ ${m.lunch.lifting_carbs}</span>` : `<span class="text-rose font-semibold">${m.lunch.rest_carbs}</span>`}`,
+      accent: 'border-amber/30'
+    },
+    {
+      time: '🕐 Snack', name: m.snack.name,
+      details: `${m.snack.desc} + ${m.snack.extras}<br><span class="text-gray-500 text-[10px] italic">${m.snack.tip}</span>`,
+      accent: 'border-purple-500/30'
+    },
+    {
+      time: '🌙 Dinner', name: m.dinner.protein,
+      details: `${m.dinner.veggies} · ${m.dinner.fats}<br><span class="text-rose text-[10px] font-semibold">${m.dinner.carb_rule}</span>`,
+      accent: 'border-gray-600/50'
+    }
+  ];
+
+  meals.forEach(meal => {
+    const el = document.createElement('div');
+    el.className = `card-glow rounded-xl bg-dark-700 p-4 border-l-[3px] ${meal.accent}`;
+    el.innerHTML = `
+      <p class="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1">${meal.time}</p>
+      <h4 class="text-sm font-semibold text-white mb-2">${meal.name}</h4>
+      <p class="text-[11px] text-gray-400 leading-relaxed">${meal.details}</p>
+    `;
+    cards.appendChild(el);
+  });
+}
+
+// ====== MILESTONES ======
+function renderMilestones() {
+  const grid = document.getElementById('milestones-grid');
+  grid.innerHTML = '';
+  const colors = { bench: ['from-rose to-pink-600','bg-rose'], squat: ['from-accent to-blue-600','bg-accent'], deadlift: ['from-teal to-emerald-600','bg-teal'] };
+  const icons = { bench: '🏋️', squat: '🦵', deadlift: '💀' };
+
+  Object.entries(APP_DATA.milestones).forEach(([key, m]) => {
+    const pct = Math.round(((m.current) / m.target) * 100);
+    const remaining = m.target - m.current;
+    const el = document.createElement('div');
+    el.className = 'card-glow rounded-2xl bg-dark-700 p-5';
+    el.innerHTML = `
+      <div class="flex items-center justify-between mb-3">
+        <div class="flex items-center gap-3">
+          <span class="text-2xl">${icons[key]}</span>
+          <div>
+            <h3 class="text-base font-bold text-white">${m.label}</h3>
+            <p class="text-[10px] text-gray-500">+${m.increase} target increase over 24 weeks</p>
+          </div>
+        </div>
+        <div class="text-right">
+          <p class="text-2xl font-black text-white">${m.current}<span class="text-sm text-gray-500 font-normal">kg</span></p>
+          <p class="text-[10px] text-gray-500">Current PR</p>
+        </div>
+      </div>
+      <div class="relative h-3 rounded-full bg-dark-500 overflow-hidden mb-2">
+        <div class="progress-bar absolute inset-y-0 left-0 rounded-full bg-gradient-to-r ${colors[key][0]}" style="width:0%" id="bar-${key}"></div>
+      </div>
+      <div class="flex justify-between text-[10px]">
+        <span class="text-gray-500">Current: <span class="text-white font-semibold">${m.current}kg</span></span>
+        <span class="font-bold ${colors[key][1].replace('bg-','text-')}">${remaining}kg to go</span>
+        <span class="text-gray-500">Target: <span class="text-white font-semibold">${m.target}kg</span></span>
+      </div>
+    `;
+    grid.appendChild(el);
+
+    // animate bar
+    requestAnimationFrame(() => {
+      setTimeout(() => { document.getElementById('bar-'+key).style.width = pct + '%'; }, 100);
+    });
+  });
+}
+
+// ====== INIT ======
+renderCalendar();
+</script>
+</body>
+</html>
