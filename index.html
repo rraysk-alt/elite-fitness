@@ -72,8 +72,8 @@ const APP_DATA = {
     program_name: "The Elite Long-Limb & Fat Loss Program Blueprint",
     user_profile: { age: 36, height_cm: 190, weight_kg: 90, biotype: "Ectomorph/Mesomorph hybrid" },
     primary_objectives: [
-      "Eliminate belly fat and love handles",
-      "Build full, muscular arms on a long frame",
+      "Build full, muscular arms on a long frame (priority #1)",
+      "Eliminate love handles via lean recomp (priority #2)",
       "Achieve an athletic, dense, slightly buff aesthetic"
     ]
   },
@@ -92,10 +92,13 @@ const APP_DATA = {
   ],
   workouts: {
     tuesday: {
-      session_type: "Fasted Cardio & Core", duration: 45, state: "Fasted (Black coffee or water + sea salt)",
+      session_type: "Cardio, Core & Arm Pump", duration: 50, state: "Light fuel OK (recomp — no longer fasted-mandatory)",
       exercises: [
-        { name:"Zone 2 Metabolic Cardio", superset_id:null, target_metrics:"35–45 min | Incline Treadmill (10–12%) or Cycle", tempo:"N/A", heart_rate_target:"120–130 BPM", ui_tips:"Keep insulin low. Conversational pace, do not sprint.", video:"https://www.youtube.com/watch?v=nOd-tc8CRWM" },
-        { name:"Hanging Knee Raises", superset_id:null, sets:4, reps:15, tempo:"2-0-2-1", rest_seconds:45, ui_tips:"Flatten lower back, curl pelvis upward for lower abs.", video:"https://www.youtube.com/watch?v=G6a5267YpHM" }
+        { name:"Zone 2 Metabolic Cardio", superset_id:null, target_metrics:"30–35 min | Incline Treadmill (10–12%) or Cycle", tempo:"N/A", heart_rate_target:"120–130 BPM", ui_tips:"Conversational pace, do not sprint. Drives the weekly deficit that strips love handles.", video:"https://www.youtube.com/watch?v=nOd-tc8CRWM" },
+        { name:"Hanging Knee Raises", superset_id:null, sets:4, reps:15, tempo:"2-0-2-1", rest_seconds:45, ui_tips:"Flatten lower back, curl pelvis upward for lower abs.", video:"https://www.youtube.com/watch?v=G6a5267YpHM" },
+        { name:"Cable Lateral Raises", superset_id:"Standalone", sets:3, reps:15, target_weight:"Light–Moderate", tempo:"2-0-X-1", rest_seconds:45, ui_tips:"Added for shoulder width / V-taper. Pinkies high, drive outward, no swinging.", video:"https://www.youtube.com/watch?v=4hTUCDUQaNA" },
+        { name:"Incline DB Curls (Arm Priority)", superset_id:"Superset A1", sets:2, reps:"12 (drop set last)", target_weight:"12–14kg DBs", tempo:"3-1-X-1", rest_seconds:0, ui_tips:"PRIORITY #1 — extra arm frequency. On the final set drop ~30% and rep to failure.", video:"https://www.youtube.com/watch?v=HhHHBj3qTJ4" },
+        { name:"Overhead Rope Triceps Ext.", superset_id:"Superset A2", sets:2, reps:"12–15 (drop set last)", target_weight:"Moderate", tempo:"3-1-X-1", rest_seconds:60, ui_tips:"PRIORITY #1 — long-head stretch. Deep stretch behind the head, drop set to finish.", video:"https://www.youtube.com/watch?v=GzmlxvSFE7A" }
       ]
     },
     thursday: {
@@ -105,13 +108,15 @@ const APP_DATA = {
         { name:"Incline Dumbbell Press (30°)", superset_id:"Superset 1A", sets:3, reps:"10-12", target_weight:"26–30kg DBs", tempo:"3-1-X-0", rest_seconds:0, ui_tips:"Elbows 45° — don't flare wide.", video:"https://www.youtube.com/watch?v=8iPEnn-ltC8" },
         { name:"Overhead Cable Tricep Ext. (Rope)", superset_id:"Superset 1B", sets:3, reps:"12-15", target_weight:"Moderate", tempo:"3-1-X-1", rest_seconds:90, ui_tips:"Face away. Elbows locked by ears. Deep stretch.", video:"https://www.youtube.com/watch?v=GzmlxvSFE7A" },
         { name:"OH Dumbbell Shoulder Press", superset_id:"Superset 2A", sets:3, reps:"8-10", target_weight:"22–24kg DBs", tempo:"2-0-X-0", rest_seconds:0, ui_tips:"Brace core. Natural arc, no clanking.", video:"https://www.youtube.com/watch?v=qEwKCR5JCog" },
-        { name:"Tricep Rope Pushdowns", superset_id:"Superset 2B", sets:3, reps:"12 (Drop set final)", target_weight:"Moderate-Heavy", tempo:"2-0-X-1", rest_seconds:90, ui_tips:"Elbows glued to ribs. Flare hands past hips at lockout.", video:"https://www.youtube.com/watch?v=d-ySLTHUgQA" }
+        { name:"Tricep Rope Pushdowns", superset_id:"Superset 2B", sets:3, reps:"12 (lengthened partials final)", target_weight:"Moderate-Heavy", tempo:"2-0-X-1", rest_seconds:90, ui_tips:"Elbows glued to ribs. On the last set add 4–5 half-reps from the stretched (top) position.", video:"https://www.youtube.com/watch?v=d-ySLTHUgQA" },
+        { name:"Cable Lateral Raises", superset_id:"Standalone", sets:3, reps:15, target_weight:"Light–Moderate", tempo:"2-0-X-1", rest_seconds:60, ui_tips:"Added for shoulder width. Lean slightly away from the cable, lead with the elbow.", video:"https://www.youtube.com/watch?v=4hTUCDUQaNA" }
       ]
     },
     friday: {
       session_type: "Lower Body Strength", duration: 45, state: "Fasted — Dynamic hip & ankle warm-up",
       exercises: [
         { name:"Barbell Squat (Wk A) / Deadlift (Wk B)", superset_id:"Standalone", sets:4, reps:5, target_weight:"Squat 80–85kg | DL 95–100kg", tempo:"3-1-X-0", rest_seconds:180, ui_tips:"3s descent. Drive through heels.", video:"https://www.youtube.com/watch?v=4VIbxJE6KKQ" },
+        { name:"Romanian Deadlift", superset_id:"Standalone", sets:3, reps:"8-10", target_weight:"60–80kg", tempo:"3-1-X-0", rest_seconds:90, ui_tips:"Added to fix the hamstring gap. Push hips back, soft knees, feel the stretch — don't squat it.", video:"https://www.youtube.com/watch?v=2SHsk9AzdjA" },
         { name:"Weighted Walking Lunges", superset_id:"Standalone", sets:3, reps:"12 steps (6/leg)", target_weight:"16–20kg DBs/hand", tempo:"Controlled", rest_seconds:60, ui_tips:"Long strides. Lean forward slightly for glutes.", video:"https://www.youtube.com/watch?v=_DLIS8SySzs" },
         { name:"DB Calf Raises (Step Edge)", superset_id:"Standalone", sets:4, reps:"15-20", target_weight:"24–30kg DB", tempo:"3-2-1-2", rest_seconds:60, ui_tips:"3s lower, 2s bottom stretch to kill Achilles bounce.", video:"https://www.youtube.com/watch?v=HvvqTpTongY" }
       ]
@@ -121,7 +126,7 @@ const APP_DATA = {
       exercises: [
         { name:"Weighted Pull-ups", superset_id:"Standalone", sets:4, reps:"5-6", target_weight:"BW + 5–10kg", tempo:"3-1-X-1", rest_seconds:120, ui_tips:"Dead hang start. Pull through elbows, 3s lower.", video:"https://www.youtube.com/watch?v=HuuyDNGrCI8" },
         { name:"Single-Arm Dumbbell Row", superset_id:"Superset 4A", sets:3, reps:"8-10/arm", target_weight:"30–34kg DB", tempo:"3-0-X-1", rest_seconds:0, ui_tips:"Row toward hip crease, not chest.", video:"https://www.youtube.com/watch?v=dFzUjzfih7k" },
-        { name:"Incline Dumbbell Curls", superset_id:"Superset 4B", sets:3, reps:"10-12", target_weight:"12–14kg DBs", tempo:"3-1-X-1", rest_seconds:90, ui_tips:"45° bench. Arms hang behind torso. No elbow swing.", video:"https://www.youtube.com/watch?v=HhHHBj3qTJ4" },
+        { name:"Incline Dumbbell Curls", superset_id:"Superset 4B", sets:3, reps:"10-12 (drop set final)", target_weight:"12–14kg DBs", tempo:"3-1-X-1", rest_seconds:90, ui_tips:"45° bench, arms hang behind torso. Drop ~30% and rep out on the last set — stretch-position overload.", video:"https://www.youtube.com/watch?v=HhHHBj3qTJ4" },
         { name:"Seated Cable Row (Wide)", superset_id:"Superset 5A", sets:3, reps:12, target_weight:"Moderate", tempo:"3-0-X-1", rest_seconds:0, ui_tips:"Pull to sternum. Squeeze shoulder blades hard.", video:"https://www.youtube.com/watch?v=SYZxuSSQ-hk" },
         { name:"Cross-Body Hammer Curls", superset_id:"Superset 5B", sets:3, reps:"12/arm", target_weight:"14–16kg DBs", tempo:"2-1-X-1", rest_seconds:90, ui_tips:"Curl across torso toward opposite shoulder for brachialis.", video:"https://www.youtube.com/watch?v=D7SCEDbbcTs" }
       ]
@@ -131,19 +136,19 @@ const APP_DATA = {
       exercises: [
         { name:"Dumbbell Lateral Raises", superset_id:"Superset 6A", sets:4, reps:15, target_weight:"8–10kg DBs", tempo:"2-0-X-1", rest_seconds:0, ui_tips:"Slight forward hinge. Drive outward, pinkies high.", video:"https://www.youtube.com/watch?v=4hTUCDUQaNA" },
         { name:"Rear Delt Flyes (Bent Over)", superset_id:"Superset 6B", sets:4, reps:15, target_weight:"6–8kg DBs", tempo:"2-0-X-1", rest_seconds:60, ui_tips:"Back parallel to floor. Don't pinch shoulder blades.", video:"https://www.youtube.com/watch?v=Lec8GC1SiS8" },
-        { name:"EZ-Bar Skull Crushers", superset_id:"Finisher A", sets:3, reps:12, target_weight:"Moderate", tempo:"3-1-X-0", rest_seconds:0, ui_tips:"Tilt arms slightly back. Lower to skull, hold stretch.", video:"https://www.youtube.com/watch?v=NIWKqcmpBug" },
+        { name:"EZ-Bar Skull Crushers", superset_id:"Finisher A", sets:3, reps:"12 (lengthened partials final)", target_weight:"Moderate", tempo:"3-1-X-0", rest_seconds:0, ui_tips:"Tilt arms back, lower past the skull for max long-head stretch. Add 4–5 half-reps from the bottom on the last set.", video:"https://www.youtube.com/watch?v=NIWKqcmpBug" },
         { name:"Cable Straight-Bar Curls", superset_id:"Finisher B", sets:3, reps:"12-15", target_weight:"Moderate", tempo:"2-0-X-2", rest_seconds:45, ui_tips:"Elbows glued. 2s peak squeeze every rep.", video:"https://www.youtube.com/watch?v=d7friQusjF8" }
       ]
     }
   },
   nutrition: {
-    macros: { protein: "180–200g", sugar_rule: "Zero refined sugar/alcohol", hydration: "Water + pink salt on waking" },
-    shake: { recipe: "Whey isolate + almond milk + raspberries + 1 tbsp PB", lifting: "Within 30–45 min post-workout", cardio: "Skip — prolong fat burn", rest: "Skip — solid food only" },
+    macros: { calories: "Training ~2,600 kcal · Rest ~2,250 kcal", protein: "180–200g daily", carbs: "Training 250–300g · Rest 120–150g (cycled)", sugar_rule: "Zero refined sugar/alcohol", hydration: "Water + sea salt on waking · +300mg magnesium at night" },
+    shake: { recipe: "Whey isolate + almond milk + raspberries + 1 tbsp PB", lifting: "Within 30–45 min post-workout — a snack ON TOP of meals, not a meal", cardio: "Optional", rest: "Skip — solid food only" },
     meals: {
-      breakfast: { lifting: "Post-Workout Signature Whey Shake", rest: "3-Egg Omelet w/ spinach or mushrooms + olive oil spray" },
-      lunch: { protein: "200g lean protein (chicken, turkey, fish, lean beef)", veggies: "Broccoli, asparagus, zucchini, green beans", lifting_carbs: "150g sweet potato, basmati rice, or quinoa", rest_carbs: "Zero carbs (or <50g) to accelerate fat loss" },
+      breakfast: { lifting: "3-Egg Omelet + spinach + 60g oats or fruit (fuel the lift)", rest: "3-Egg Omelet w/ spinach or mushrooms + olive oil spray" },
+      lunch: { protein: "200g lean protein (chicken, turkey, fish, lean beef)", veggies: "Broccoli, asparagus, zucchini, green beans", lifting_carbs: "150g sweet potato, basmati rice, or quinoa", rest_carbs: "~80g carbs (rice/sweet potato) — recomp, not zero" },
       snack: { name: "The Casein Secret Weapon", desc: "2–3 pots Le Petit Suisse (0–2% fat)", extras: "Walnuts/almonds + heavy cinnamon", tip: "Slow-digesting casein drips aminos for hours, kills sugar cravings" },
-      dinner: { protein: "200g salmon, mackerel, fish, or chicken", veggies: "Unlimited green vegetables", fats: "1 tbsp EVOO", carb_rule: "Zero starches — keeps insulin flat for nighttime GH production" }
+      dinner: { protein: "200g salmon, mackerel, fish, or chicken", veggies: "Unlimited green vegetables", fats: "1 tbsp EVOO", carb_rule: "Training days: +50–80g rice. Rest days: keep light. Night carbs are fine — they aid sleep/recovery." }
     }
   },
   milestones: {
@@ -178,8 +183,8 @@ const APP_DATA = {
   <section id="section-dashboard">
     <!-- Objectives -->
     <div class="flex flex-wrap gap-2 mb-6">
-      <span class="text-[11px] font-semibold px-3 py-1.5 rounded-full bg-rose/10 text-rose border border-rose/20">🔥 Cut belly fat</span>
-      <span class="text-[11px] font-semibold px-3 py-1.5 rounded-full bg-accent/10 text-accent-light border border-accent/20">💪 Build long-frame arms</span>
+      <span class="text-[11px] font-semibold px-3 py-1.5 rounded-full bg-accent/10 text-accent-light border border-accent/20">💪 Build long-frame arms · #1</span>
+      <span class="text-[11px] font-semibold px-3 py-1.5 rounded-full bg-rose/10 text-rose border border-rose/20">🔥 Kill love handles · #2</span>
       <span class="text-[11px] font-semibold px-3 py-1.5 rounded-full bg-teal/10 text-teal border border-teal/20">⚡ Athletic dense aesthetic</span>
     </div>
 
@@ -196,7 +201,7 @@ const APP_DATA = {
     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
       <div>
         <h2 class="text-lg font-bold text-white">Nutrition Blueprint</h2>
-        <p class="text-xs text-gray-500 mt-0.5">Protein: <span class="text-teal font-semibold">180–200g/day</span> · Zero sugar/alcohol · Hydrate on waking with salt</p>
+        <p class="text-xs text-gray-500 mt-0.5">Maintenance recomp · Protein <span class="text-teal font-semibold">180–200g</span> · Carbs <span class="text-amber font-semibold">cycled (train 250–300g / rest 120–150g)</span> · Zero sugar/alcohol</p>
       </div>
       <div class="nutrition-toggle flex items-center" id="nutrition-toggle">
         <div class="slider" id="toggle-slider" style="left:3px; width:118px;"></div>
@@ -378,7 +383,7 @@ function renderNutrition() {
   const meals = [
     {
       time: '🌅 Breakfast', name: isLifting ? m.breakfast.lifting : m.breakfast.rest,
-      details: isLifting ? `${APP_DATA.nutrition.shake.recipe}<br><span class="text-teal text-[10px]">${APP_DATA.nutrition.shake.lifting}</span>` : 'Keeps insulin low — fasted fat burning.',
+      details: isLifting ? `Post-lift shake: ${APP_DATA.nutrition.shake.recipe}<br><span class="text-teal text-[10px]">${APP_DATA.nutrition.shake.lifting}</span>` : 'Lower-carb morning — protein + fats to start the day.',
       accent: isLifting ? 'border-accent/30' : 'border-teal/30'
     },
     {
