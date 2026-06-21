@@ -142,13 +142,13 @@ const APP_DATA = {
     }
   },
   nutrition: {
-    macros: { calories: "Training ~2,600 kcal · Rest ~2,250 kcal", protein: "180–200g daily", carbs: "Training 250–300g · Rest 120–150g (cycled)", sugar_rule: "Zero refined sugar/alcohol", hydration: "Water + sea salt on waking · +300mg magnesium at night" },
+    macros: { calories: "Training ~2,250 kcal · Rest ~1,900 kcal (~450 deficit)", protein: "180–200g daily", carbs: "Training ~200g · Rest ~120g (cycled)", sugar_rule: "Zero refined sugar/alcohol", hydration: "Water + sea salt on waking · +300mg magnesium at night" },
     shake: { recipe: "Whey isolate + almond milk + raspberries + 1 tbsp PB", lifting: "Within 30–45 min post-workout — a snack ON TOP of meals, not a meal", cardio: "Optional", rest: "Skip — solid food only" },
     meals: {
-      breakfast: { lifting: "3-Egg Omelet + spinach + 60g oats or fruit (fuel the lift)", rest: "3-Egg Omelet w/ spinach or mushrooms + olive oil spray" },
-      lunch: { protein: "200g lean protein (chicken, turkey, fish, lean beef)", veggies: "Broccoli, asparagus, zucchini, green beans", lifting_carbs: "150g sweet potato, basmati rice, or quinoa", rest_carbs: "~80g carbs (rice/sweet potato) — recomp, not zero" },
+      breakfast: { lifting: "3-Egg Omelet + spinach + 40g oats or fruit (fuel the lift)", rest: "3-Egg Omelet w/ spinach or mushrooms + olive oil spray" },
+      lunch: { protein: "200g lean protein (chicken, turkey, fish, lean beef)", veggies: "Broccoli, asparagus, zucchini, green beans", lifting_carbs: "120g sweet potato, basmati rice, or quinoa", rest_carbs: "~50g carbs (small portion) — cut, but not zero" },
       snack: { name: "The Casein Secret Weapon", desc: "2–3 pots Le Petit Suisse (0–2% fat)", extras: "Walnuts/almonds + heavy cinnamon", tip: "Slow-digesting casein drips aminos for hours, kills sugar cravings" },
-      dinner: { protein: "200g salmon, mackerel, fish, or chicken", veggies: "Unlimited green vegetables", fats: "1 tbsp EVOO", carb_rule: "Training days: +50–80g rice. Rest days: keep light. Night carbs are fine — they aid sleep/recovery." }
+      dinner: { protein: "200g salmon, mackerel, fish, or chicken", veggies: "Unlimited green vegetables", fats: "1 tbsp EVOO", carb_rule: "Training days: +40g rice if hungry. Rest days: veg only. Night carbs are fine — they aid sleep." }
     }
   },
   milestones: {
@@ -201,7 +201,7 @@ const APP_DATA = {
     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
       <div>
         <h2 class="text-lg font-bold text-white">Nutrition Blueprint</h2>
-        <p class="text-xs text-gray-500 mt-0.5">Maintenance recomp · Protein <span class="text-teal font-semibold">180–200g</span> · Carbs <span class="text-amber font-semibold">cycled (train 250–300g / rest 120–150g)</span> · Zero sugar/alcohol</p>
+        <p class="text-xs text-gray-500 mt-0.5">Moderate cut (~20% → ~12%) · Protein <span class="text-teal font-semibold">180–200g</span> · Carbs <span class="text-amber font-semibold">cycled (train ~200g / rest ~120g)</span> · ~450 kcal deficit</p>
       </div>
       <div class="nutrition-toggle flex items-center" id="nutrition-toggle">
         <div class="slider" id="toggle-slider" style="left:3px; width:118px;"></div>
