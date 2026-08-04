@@ -35,6 +35,8 @@ body { background: #0a0a0f; }
 .day-card.active { ring: 2px solid #6366f1; }
 .tab-btn { transition: all 0.2s; }
 .tab-btn.active { background: linear-gradient(135deg, #6366f1, #4f46e5); color: white; }
+.prog-btn { transition: all 0.2s; }
+.prog-btn.active-prog { background: linear-gradient(135deg, #2dd4bf, #14b8a6); color: #0a0a0f; }
 
 @keyframes slideDown { from { opacity:0; max-height:0; } to { opacity:1; max-height:2000px; } }
 .slide-down { animation: slideDown 0.4s ease forwards; overflow: hidden; }
@@ -83,15 +85,25 @@ const APP_DATA = {
   },
   schedule: [
     { day:"Monday", type:"Rest", title:"Full Recovery & Mobility", action:"10-minute deep stretching/foam rolling for hamstrings, lats, and chest." },
-    { day:"Tuesday", type:"Cardio/Core", title:"Fasted Love-Handle Crusher", action:"Morning fasted Zone 2 cardio + core isolation block." },
+    { day:"Tuesday", type:"Cardio/Core", title:"Fasted Love-Handle Crusher", workout:"cardio", action:"Morning fasted Zone 2 cardio + core isolation block." },
     { day:"Wednesday", type:"Rest", title:"Muscle Tissue Repair", action:"Full recovery. Focus on complete protein saturation and low stress." },
-    { day:"Thursday", type:"Workout", title:"Upper Body: Heavy Push & Triceps", action:"Morning strength-hypertrophy hybrid." },
-    { day:"Friday", type:"Workout", title:"Lower Body: Strength & Calves", action:"Morning heavy compound leg tracking." },
-    { day:"Saturday", type:"Workout", title:"Hypertrophy Pull & Bicep Length", action:"Back width & brachialis/bicep focus." },
-    { day:"Sunday", type:"Workout", title:"Shoulders & High-Volume Arm Pump", action:"Fast 40-minute metabolic pump." }
+    { day:"Thursday", type:"Workout", title:"Upper Body: Heavy Push & Triceps", workout:"push", action:"Morning strength-hypertrophy hybrid." },
+    { day:"Friday", type:"Workout", title:"Lower Body: Strength & Calves", workout:"lower", action:"Morning heavy compound leg tracking." },
+    { day:"Saturday", type:"Workout", title:"Hypertrophy Pull & Bicep Length", workout:"pull", action:"Back width & brachialis/bicep focus." },
+    { day:"Sunday", type:"Workout", title:"Shoulders & High-Volume Arm Pump", workout:"shoulders", action:"Fast 40-minute metabolic pump." }
+  ],
+  // Alternative layout for the new office (Mon/Tue/Thu) + WFH (Wed/Fri) days. Same exercise library, re-slotted.
+  schedule_adapted: [
+    { day:"Monday", type:"Workout", title:"Lower Body: Strength & Calves", workout:"lower", action:"🏢 Office day — gym. Heavy compound legs + hamstrings." },
+    { day:"Tuesday", type:"Workout", title:"Upper Push & Triceps", workout:"push", action:"🏢 Office day — gym. Strength-hypertrophy push." },
+    { day:"Wednesday", type:"Park", title:"Park: Pull & Biceps (Bars)", action:"🏡 WFH — near home. Bar session at the park → open the 🌳 Park tab." },
+    { day:"Thursday", type:"Workout", title:"Shoulders, Arms & Core", workout:"shoulders", action:"🏢 Office day — gym. V-taper delts + high-volume arm pump." },
+    { day:"Friday", type:"Park", title:"Park: Push & Triceps (Bars)", action:"🏡 WFH — near home. Dips & push at the park → open the 🌳 Park tab." },
+    { day:"Saturday", type:"Rest", title:"Full Recovery & Mobility", action:"Rest. Optional Park Day 3 (legs/core) if you feel fresh." },
+    { day:"Sunday", type:"Rest", title:"Muscle Tissue Repair", action:"Full recovery. High protein, low stress, sleep." }
   ],
   workouts: {
-    tuesday: {
+    cardio: {
       session_type: "Cardio, Core & Arm Pump", duration: 50, state: "Light fuel OK (recomp — no longer fasted-mandatory)",
       exercises: [
         { name:"Zone 2 Metabolic Cardio", superset_id:null, target_metrics:"30–35 min | Incline Treadmill (10–12%) or Cycle", tempo:"N/A", heart_rate_target:"120–130 BPM", ui_tips:"Conversational pace, do not sprint. Drives the weekly deficit that strips love handles.", video:"https://www.youtube.com/watch?v=nOd-tc8CRWM" },
@@ -101,7 +113,7 @@ const APP_DATA = {
         { name:"Overhead Rope Triceps Ext.", superset_id:"Superset A2", sets:2, reps:"12–15 (drop set last)", target_weight:"Moderate", tempo:"3-1-X-1", rest_seconds:60, ui_tips:"PRIORITY #1 — long-head stretch. Deep stretch behind the head, drop set to finish.", video:"https://www.youtube.com/watch?v=GzmlxvSFE7A" }
       ]
     },
-    thursday: {
+    push: {
       session_type: "Upper Body Push & Tricep Specialization", duration: 50, state: "Post-Workout Fueling within 45 mins",
       exercises: [
         { name:"Flat Barbell Bench Press", superset_id:"Standalone", sets:4, reps:"6-8", target_weight:"70–75kg", tempo:"3-0-X-0", rest_seconds:120, ui_tips:"Pin shoulder blades back/down. 3s lower, no bounce.", video:"https://www.youtube.com/watch?v=4Y2ZdHCOXok" },
@@ -112,7 +124,7 @@ const APP_DATA = {
         { name:"Cable Lateral Raises", superset_id:"Standalone", sets:3, reps:15, target_weight:"Light–Moderate", tempo:"2-0-X-1", rest_seconds:60, ui_tips:"Added for shoulder width. Lean slightly away from the cable, lead with the elbow.", video:"https://www.youtube.com/watch?v=4hTUCDUQaNA" }
       ]
     },
-    friday: {
+    lower: {
       session_type: "Lower Body Strength", duration: 45, state: "Fasted — Dynamic hip & ankle warm-up",
       exercises: [
         { name:"Barbell Squat (Wk A) / Deadlift (Wk B)", superset_id:"Standalone", sets:4, reps:5, target_weight:"Squat 80–85kg | DL 95–100kg", tempo:"3-1-X-0", rest_seconds:180, ui_tips:"3s descent. Drive through heels.", video:"https://www.youtube.com/watch?v=4VIbxJE6KKQ" },
@@ -121,7 +133,7 @@ const APP_DATA = {
         { name:"DB Calf Raises (Step Edge)", superset_id:"Standalone", sets:4, reps:"15-20", target_weight:"24–30kg DB", tempo:"3-2-1-2", rest_seconds:60, ui_tips:"3s lower, 2s bottom stretch to kill Achilles bounce.", video:"https://www.youtube.com/watch?v=HvvqTpTongY" }
       ]
     },
-    saturday: {
+    pull: {
       session_type: "Hypertrophy Pull & Bicep Specialization", duration: 50, state: "High weekend energy window",
       exercises: [
         { name:"Weighted Pull-ups", superset_id:"Standalone", sets:4, reps:"5-6", target_weight:"BW + 5–10kg", tempo:"3-1-X-1", rest_seconds:120, ui_tips:"Dead hang start. Pull through elbows, 3s lower.", video:"https://www.youtube.com/watch?v=HuuyDNGrCI8" },
@@ -131,7 +143,7 @@ const APP_DATA = {
         { name:"Cross-Body Hammer Curls", superset_id:"Superset 5B", sets:3, reps:"12/arm", target_weight:"14–16kg DBs", tempo:"2-1-X-1", rest_seconds:90, ui_tips:"Curl across torso toward opposite shoulder for brachialis.", video:"https://www.youtube.com/watch?v=D7SCEDbbcTs" }
       ]
     },
-    sunday: {
+    shoulders: {
       session_type: "Shoulders & High-Volume Arm Pump", duration: 40, state: "Pure aesthetic — rapid pace",
       exercises: [
         { name:"Dumbbell Lateral Raises", superset_id:"Superset 6A", sets:4, reps:15, target_weight:"8–10kg DBs", tempo:"2-0-X-1", rest_seconds:0, ui_tips:"Slight forward hinge. Drive outward, pinkies high.", video:"https://www.youtube.com/watch?v=4hTUCDUQaNA" },
@@ -158,7 +170,7 @@ const APP_DATA = {
   },
   park_sessions: [
     {
-      tag: "PARK DAY 1 · SAT", badgeClass: "bg-accent/20 text-accent-light",
+      tag: "PARK DAY 1 · WED", badgeClass: "bg-accent/20 text-accent-light",
       title: "Pull & Biceps (Bars)", subtitle: "Back width + arm size — the park version of your gym Pull day",
       exercises: [
         { name:"Wide Pull-ups", tag:"Back width", sets:4, reps:"6–10", tip:"Dead-hang start, pull through the elbows, 3s lower. Add a loaded backpack once 10 is easy." },
@@ -169,7 +181,7 @@ const APP_DATA = {
       ]
     },
     {
-      tag: "PARK DAY 2 · SUN", badgeClass: "bg-rose/20 text-rose",
+      tag: "PARK DAY 2 · FRI", badgeClass: "bg-rose/20 text-rose",
       title: "Push & Triceps (Bars + Ground)", subtitle: "Chest / shoulders / triceps — the park version of your gym Push & Arm day",
       exercises: [
         { name:"Parallel Bar Dips", tag:"Triceps · #1", sets:4, reps:"8–12", tip:"PRIORITY — stay upright to bias triceps. 3s lower, full depth. Backpack to progress." },
@@ -205,7 +217,7 @@ const APP_DATA = {
       </div>
     </div>
     <div class="flex gap-1">
-      <button onclick="switchTab('dashboard')" id="tab-dashboard" class="tab-btn active text-xs font-semibold px-4 py-2 rounded-full">🏋️ Gym</button>
+      <button onclick="switchTab('dashboard')" id="tab-dashboard" class="tab-btn active text-xs font-semibold px-4 py-2 rounded-full">📅 Program</button>
       <button onclick="switchTab('park')" id="tab-park" class="tab-btn text-xs font-semibold px-4 py-2 rounded-full text-gray-400 hover:text-white">🌳 Park</button>
       <button onclick="switchTab('nutrition')" id="tab-nutrition" class="tab-btn text-xs font-semibold px-4 py-2 rounded-full text-gray-400 hover:text-white">Nutrition</button>
       <button onclick="switchTab('milestones')" id="tab-milestones" class="tab-btn text-xs font-semibold px-4 py-2 rounded-full text-gray-400 hover:text-white">Milestones</button>
@@ -224,6 +236,16 @@ const APP_DATA = {
       <span class="text-[11px] font-semibold px-3 py-1.5 rounded-full bg-teal/10 text-teal border border-teal/20">⚡ Athletic dense aesthetic</span>
     </div>
 
+    <!-- Program Switcher -->
+    <div class="flex items-center gap-2 mb-5 flex-wrap">
+      <span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Program</span>
+      <div class="flex bg-dark-700 rounded-full p-1 border border-white/5">
+        <button id="prog-original" onclick="setProgram('original')" class="prog-btn active-prog text-[11px] font-semibold px-3.5 py-1.5 rounded-full">Original</button>
+        <button id="prog-adapted" onclick="setProgram('adapted')" class="prog-btn text-[11px] font-semibold px-3.5 py-1.5 rounded-full text-gray-400">Office / WFH</button>
+      </div>
+      <span id="prog-hint" class="text-[10px] text-gray-600"></span>
+    </div>
+
     <!-- Weekly Calendar -->
     <h2 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3">Weekly Schedule</h2>
     <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2 mb-6" id="calendar-grid"></div>
@@ -235,9 +257,9 @@ const APP_DATA = {
   <!-- ===== PARK TAB ===== -->
   <section id="section-park" class="hidden">
     <h2 class="text-lg font-bold text-white mb-1">🌳 Park / Street Workout</h2>
-    <p class="text-xs text-gray-500 mb-4">Home option — bar-based calisthenics for weekends near the park. <span class="text-teal">Gym on workdays, park on weekends.</span> Arms stay priority #1 — bars are elite for biceps &amp; triceps.</p>
+    <p class="text-xs text-gray-500 mb-4">Bar-based calisthenics for the days you train near home. <span class="text-teal">Used as Wed &amp; Fri in the Office / WFH program.</span> Arms stay priority #1 — bars are elite for biceps &amp; triceps.</p>
     <div class="rounded-xl bg-dark-800 border border-accent/20 p-3.5 mb-5 text-[11px] text-gray-400 leading-relaxed">
-      <strong class="text-accent-light">How to slot it:</strong> Workdays (near work) → run the gym program on the <em>Gym</em> tab. Weekend (near home) → <strong class="text-white">Park Day 1 (Sat)</strong> + <strong class="text-white">Park Day 2 (Sun)</strong>. Park Day 3 is a bonus / travel fallback. Progress by adding reps, slowing the tempo, elevating your feet, or wearing a loaded backpack.
+      <strong class="text-accent-light">How to slot it:</strong> On the <em>Program</em> tab choose <strong class="text-white">Office / WFH</strong> → office days (Mon/Tue/Thu) are gym; your WFH days run <strong class="text-white">Park Day 1 (Wed)</strong> + <strong class="text-white">Park Day 2 (Fri)</strong>. Park Day 3 is a weekend bonus / travel fallback. Progress by adding reps, slowing the tempo, elevating your feet, or wearing a loaded backpack.
     </div>
     <div class="grid gap-4" id="park-sessions"></div>
   </section>
@@ -272,6 +294,25 @@ const APP_DATA = {
 let currentTab = 'dashboard';
 let selectedDay = null;
 let nutritionMode = 'lifting';
+let currentProgram = 'original';
+
+function currentSchedule() {
+  return currentProgram === 'adapted' ? APP_DATA.schedule_adapted : APP_DATA.schedule;
+}
+
+function setProgram(p) {
+  currentProgram = p;
+  selectedDay = null;
+  document.getElementById('workout-detail').classList.add('hidden');
+  document.getElementById('prog-original').classList.toggle('active-prog', p === 'original');
+  document.getElementById('prog-original').classList.toggle('text-gray-400', p !== 'original');
+  document.getElementById('prog-adapted').classList.toggle('active-prog', p === 'adapted');
+  document.getElementById('prog-adapted').classList.toggle('text-gray-400', p !== 'adapted');
+  document.getElementById('prog-hint').textContent = p === 'adapted'
+    ? 'Office (Mon/Tue/Thu) · WFH park (Wed/Fri)'
+    : 'Your original weekly layout';
+  renderCalendar();
+}
 
 // ====== TAB SWITCHING ======
 function switchTab(tab) {
@@ -294,9 +335,10 @@ function renderCalendar() {
   const colors = {
     Rest: { bg:'bg-gray-800/50', border:'border-gray-700/50', badge:'bg-gray-700 text-gray-400', dot:'bg-gray-500' },
     'Cardio/Core': { bg:'bg-amber-950/20', border:'border-amber-800/30', badge:'bg-amber-900/50 text-amber-400', dot:'bg-amber-500' },
-    Workout: { bg:'bg-accent/5', border:'border-accent/20', badge:'bg-accent/20 text-accent-light', dot:'bg-accent' }
+    Workout: { bg:'bg-accent/5', border:'border-accent/20', badge:'bg-accent/20 text-accent-light', dot:'bg-accent' },
+    Park: { bg:'bg-teal/5', border:'border-teal/20', badge:'bg-teal/20 text-teal', dot:'bg-teal' }
   };
-  APP_DATA.schedule.forEach((d,i) => {
+  currentSchedule().forEach((d,i) => {
     const c = colors[d.type];
     const isActive = selectedDay === d.day.toLowerCase();
     const el = document.createElement('div');
@@ -321,15 +363,18 @@ function selectDay(day, type) {
   const panel = document.getElementById('workout-detail');
   if (!selectedDay) { panel.classList.add('hidden'); return; }
 
-  const workout = APP_DATA.workouts[selectedDay];
-  const scheduleItem = APP_DATA.schedule.find(s => s.day.toLowerCase() === selectedDay);
+  const scheduleItem = currentSchedule().find(s => s.day.toLowerCase() === selectedDay);
+  const workout = scheduleItem && scheduleItem.workout ? APP_DATA.workouts[scheduleItem.workout] : null;
   if (!workout) {
+    const isPark = scheduleItem.type === 'Park';
     panel.classList.remove('hidden');
     panel.innerHTML = `
       <div class="card-glow rounded-2xl bg-dark-700 p-6 mt-2">
         <h3 class="text-base font-bold text-white mb-1">${scheduleItem.title}</h3>
         <p class="text-sm text-gray-400">${scheduleItem.action}</p>
-        <p class="text-xs text-gray-600 mt-3">No exercises scheduled — focus on recovery.</p>
+        ${isPark
+          ? `<button onclick="switchTab('park')" class="mt-4 inline-flex items-center gap-1.5 text-xs font-bold px-4 py-2 rounded-full bg-teal/15 text-teal border border-teal/30 hover:bg-teal/25 transition-colors">🌳 Open Park session →</button>`
+          : `<p class="text-xs text-gray-600 mt-3">No exercises scheduled — focus on recovery.</p>`}
       </div>`;
     return;
   }
@@ -537,6 +582,7 @@ function renderPark() {
 }
 
 // ====== INIT ======
+document.getElementById('prog-hint').textContent = 'Your original weekly layout';
 renderCalendar();
 </script>
 </body>
