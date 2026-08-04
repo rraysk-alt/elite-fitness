@@ -155,7 +155,42 @@ const APP_DATA = {
     bench: { current: 90, target: 105, label: "Bench Press", increase: "16%" },
     squat: { current: 100, target: 125, label: "Barbell Squat", increase: "25%" },
     deadlift: { current: 120, target: 150, label: "Deadlift", increase: "25%" }
-  }
+  },
+  park_sessions: [
+    {
+      tag: "PARK DAY 1 · SAT", badgeClass: "bg-accent/20 text-accent-light",
+      title: "Pull & Biceps (Bars)", subtitle: "Back width + arm size — the park version of your gym Pull day",
+      exercises: [
+        { name:"Wide Pull-ups", tag:"Back width", sets:4, reps:"6–10", tip:"Dead-hang start, pull through the elbows, 3s lower. Add a loaded backpack once 10 is easy." },
+        { name:"Chin-ups (underhand)", tag:"Biceps · #1", sets:3, reps:"8–12", tip:"PRIORITY — supinated grip smashes the biceps. Full stretch at the bottom, no kipping." },
+        { name:"Australian Rows (low bar)", tag:"Back thickness", sets:3, reps:"12–15", tip:"Feet forward under a waist-high bar, body straight. Squeeze the blades, chest to bar." },
+        { name:"Close / Neutral-grip Chin-ups", tag:"Brachialis", sets:3, reps:"8", tip:"Hands close together — builds the brachialis that adds width and resting arm thickness." },
+        { name:"Hanging Leg Raises", tag:"Core", sets:4, reps:"15", tip:"Curl the pelvis up for lower abs. Slow and controlled — kill the swing." }
+      ]
+    },
+    {
+      tag: "PARK DAY 2 · SUN", badgeClass: "bg-rose/20 text-rose",
+      title: "Push & Triceps (Bars + Ground)", subtitle: "Chest / shoulders / triceps — the park version of your gym Push & Arm day",
+      exercises: [
+        { name:"Parallel Bar Dips", tag:"Triceps · #1", sets:4, reps:"8–12", tip:"PRIORITY — stay upright to bias triceps. 3s lower, full depth. Backpack to progress." },
+        { name:"Pike Push-ups", tag:"Shoulders", sets:3, reps:"10–12", tip:"Hips high, head to the ground between the hands. Elevate feet on a bench to load the delts harder." },
+        { name:"Close-grip / Bench Dips", tag:"Long head", sets:3, reps:"12", tip:"Elbows tight — hits the triceps long head that fills out the arm at rest." },
+        { name:"Diamond Push-ups", tag:"Triceps", sets:3, reps:"AMRAP", tip:"Hands in a diamond under the chest. Push the last set to near-failure." },
+        { name:"L-sit / Knee-raise Holds", tag:"Core", sets:3, reps:"20s", tip:"Hold on the dip bars or ground. Torches the midsection and builds control." }
+      ]
+    },
+    {
+      tag: "PARK DAY 3 · BONUS", badgeClass: "bg-teal/20 text-teal",
+      title: "Legs & Core (Bodyweight)", subtitle: "Bonus / travel fallback — only if you can't hit legs at the gym that week",
+      exercises: [
+        { name:"Bulgarian Split Squats", tag:"Quads/Glutes", sets:3, reps:"12/leg", tip:"Rear foot on a bench. Slow, deep, controlled — no weight needed to make it burn." },
+        { name:"Reverse Lunges", tag:"Legs", sets:3, reps:"12/leg", tip:"Long step back, drive through the front heel." },
+        { name:"Assisted Pistol Squats", tag:"Single-leg", sets:3, reps:"8/leg", tip:"Hold a pole/bar for balance. Builds single-leg strength and control." },
+        { name:"Step Calf Raises", tag:"Calves", sets:4, reps:"20", tip:"Full stretch at the bottom, 2s pause to kill the bounce." },
+        { name:"Hanging Knee + Oblique Raises", tag:"Love handles", sets:3, reps:"15", tip:"Twist knees side-to-side for the obliques — the love-handle finisher." }
+      ]
+    }
+  ]
 };
 </script>
 
@@ -170,7 +205,8 @@ const APP_DATA = {
       </div>
     </div>
     <div class="flex gap-1">
-      <button onclick="switchTab('dashboard')" id="tab-dashboard" class="tab-btn active text-xs font-semibold px-4 py-2 rounded-full">Dashboard</button>
+      <button onclick="switchTab('dashboard')" id="tab-dashboard" class="tab-btn active text-xs font-semibold px-4 py-2 rounded-full">🏋️ Gym</button>
+      <button onclick="switchTab('park')" id="tab-park" class="tab-btn text-xs font-semibold px-4 py-2 rounded-full text-gray-400 hover:text-white">🌳 Park</button>
       <button onclick="switchTab('nutrition')" id="tab-nutrition" class="tab-btn text-xs font-semibold px-4 py-2 rounded-full text-gray-400 hover:text-white">Nutrition</button>
       <button onclick="switchTab('milestones')" id="tab-milestones" class="tab-btn text-xs font-semibold px-4 py-2 rounded-full text-gray-400 hover:text-white">Milestones</button>
     </div>
@@ -194,6 +230,16 @@ const APP_DATA = {
 
     <!-- Workout Detail Panel -->
     <div id="workout-detail" class="hidden slide-down"></div>
+  </section>
+
+  <!-- ===== PARK TAB ===== -->
+  <section id="section-park" class="hidden">
+    <h2 class="text-lg font-bold text-white mb-1">🌳 Park / Street Workout</h2>
+    <p class="text-xs text-gray-500 mb-4">Home option — bar-based calisthenics for weekends near the park. <span class="text-teal">Gym on workdays, park on weekends.</span> Arms stay priority #1 — bars are elite for biceps &amp; triceps.</p>
+    <div class="rounded-xl bg-dark-800 border border-accent/20 p-3.5 mb-5 text-[11px] text-gray-400 leading-relaxed">
+      <strong class="text-accent-light">How to slot it:</strong> Workdays (near work) → run the gym program on the <em>Gym</em> tab. Weekend (near home) → <strong class="text-white">Park Day 1 (Sat)</strong> + <strong class="text-white">Park Day 2 (Sun)</strong>. Park Day 3 is a bonus / travel fallback. Progress by adding reps, slowing the tempo, elevating your feet, or wearing a loaded backpack.
+    </div>
+    <div class="grid gap-4" id="park-sessions"></div>
   </section>
 
   <!-- ===== NUTRITION TAB ===== -->
@@ -230,12 +276,13 @@ let nutritionMode = 'lifting';
 // ====== TAB SWITCHING ======
 function switchTab(tab) {
   currentTab = tab;
-  ['dashboard','nutrition','milestones'].forEach(t => {
+  ['dashboard','park','nutrition','milestones'].forEach(t => {
     document.getElementById('section-'+t).classList.toggle('hidden', t !== tab);
     const btn = document.getElementById('tab-'+t);
     btn.classList.toggle('active', t === tab);
     btn.classList.toggle('text-gray-400', t !== tab);
   });
+  if (tab === 'park') renderPark();
   if (tab === 'nutrition') renderNutrition();
   if (tab === 'milestones') renderMilestones();
 }
@@ -456,6 +503,36 @@ function renderMilestones() {
     requestAnimationFrame(() => {
       setTimeout(() => { document.getElementById('bar-'+key).style.width = pct + '%'; }, 100);
     });
+  });
+}
+
+// ====== PARK / STREET WORKOUT ======
+function renderPark() {
+  const wrap = document.getElementById('park-sessions');
+  wrap.innerHTML = '';
+  APP_DATA.park_sessions.forEach(s => {
+    const ex = s.exercises.map(e => `
+      <div class="rounded-xl bg-dark-800 p-3.5 standalone-stripe">
+        <div class="flex items-center flex-wrap gap-2">
+          <h4 class="text-sm font-semibold text-white">${e.name}</h4>
+          ${e.tag ? `<span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-accent/20 text-accent-light">${e.tag}</span>` : ''}
+        </div>
+        <div class="flex flex-wrap gap-3 mt-2">
+          <span class="text-[11px] text-gray-400"><span class="text-white font-semibold">${e.sets}</span> sets</span>
+          <span class="text-[11px] text-gray-400"><span class="text-white font-semibold">${e.reps}</span> reps</span>
+        </div>
+        <p class="text-[11px] text-gray-500 mt-2 leading-relaxed italic">💡 ${e.tip}</p>
+      </div>`).join('');
+    const el = document.createElement('div');
+    el.className = 'card-glow rounded-2xl bg-dark-700 p-5';
+    el.innerHTML = `
+      <div class="mb-3">
+        <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${s.badgeClass}">${s.tag}</span>
+        <h3 class="text-base font-bold text-white mt-2">${s.title}</h3>
+        <p class="text-xs text-gray-500 mt-0.5">${s.subtitle}</p>
+      </div>
+      <div class="space-y-2">${ex}</div>`;
+    wrap.appendChild(el);
   });
 }
 
