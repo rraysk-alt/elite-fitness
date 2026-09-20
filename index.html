@@ -192,6 +192,26 @@ const APP_DATA = {
       { label:"Wrist", value:"17.5 cm", target:"frame ref", note:"medium-large frame" }
     ]
   },
+  timeline: [
+    {
+      phase: "PHASE 1", name: "Cut — Get Lean", dates: "Now → late Nov 2026 · ~10 wks", color: "rose",
+      goal: "Strip the waist and reveal what you've already built.",
+      targets: ["Waist 95 → ≤ 88 cm", "Body fat ~17% → ~12–13%", "Hold arms ≥ 38 cm + current lifts"],
+      how: "~450 kcal deficit · 190g protein · train to maintain · 8–10k steps · protect sleep"
+    },
+    {
+      phase: "PHASE 2", name: "Lean Bulk — Build the Arms", dates: "Dec 2026 → Apr 2027 · ~5 months", color: "accent",
+      goal: "Add real size on a lean base — arms & delts, where every cm now shows.",
+      targets: ["Flexed arm 38.5 → ~41–42 cm", "FFMI 21 → ~22–23", "Keep waist under 92 cm"],
+      how: "Slight surplus (~+250 kcal) · progressive overload · arms 3×/wk · ease off if waist creeps"
+    },
+    {
+      phase: "PHASE 3", name: "Mini-Cut — Summer Reveal", dates: "Apr → early Jun 2027 · ~6–8 wks", color: "teal",
+      goal: "Shed the little bulk fat and arrive lean AND bigger than today.",
+      targets: ["Back to ~12% at higher muscle mass", "Visibly bigger arms", "Lean for summer"],
+      how: "Moderate cut again · protein high · hold the new muscle"
+    }
+  ],
   park_sessions: [
     {
       tag: "PARK DAY 1 · WED", badgeClass: "bg-accent/20 text-accent-light",
@@ -306,6 +326,10 @@ const APP_DATA = {
 
   <!-- ===== MILESTONES TAB ===== -->
   <section id="section-milestones" class="hidden">
+    <h2 class="text-lg font-bold text-white mb-1">🗺️ Winter Game Plan</h2>
+    <p class="text-xs text-gray-500 mb-4">Cut lean now → build arms through winter → mini-cut for summer. The whole map.</p>
+    <div class="grid gap-4 mb-9" id="timeline-grid"></div>
+
     <h2 class="text-lg font-bold text-white mb-1">Body Composition Baseline</h2>
     <p class="text-xs text-gray-500 mb-4">Anovator scan · <span class="text-teal">19 Sep 2026</span> · rescan in the same conditions every 3–4 weeks and track the trend</p>
     <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8" id="scan-grid"></div>
@@ -314,8 +338,8 @@ const APP_DATA = {
     <p class="text-xs text-gray-500 mb-4" id="measure-sub"></p>
     <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8" id="measure-grid"></div>
 
-    <h2 class="text-lg font-bold text-white mb-1">6-Month Strength Milestones</h2>
-    <p class="text-xs text-gray-500 mb-6">Progressive overload targets over 24 weeks</p>
+    <h2 class="text-lg font-bold text-white mb-1">Strength Targets — Phase 2 (Build)</h2>
+    <p class="text-xs text-gray-500 mb-6">Hold these through the cut, then chase them in the winter bulk</p>
     <div class="grid gap-4" id="milestones-grid"></div>
   </section>
 
@@ -577,8 +601,38 @@ function renderMeasure() {
   });
 }
 
+// ====== TIMELINE / GAME PLAN ======
+function renderTimeline() {
+  const grid = document.getElementById('timeline-grid');
+  if (!grid || !APP_DATA.timeline) return;
+  const c = {
+    rose:   { badge:'bg-rose/15 text-rose border-rose/30', dot:'bg-rose', line:'text-rose' },
+    accent: { badge:'bg-accent/15 text-accent-light border-accent/30', dot:'bg-accent', line:'text-accent-light' },
+    teal:   { badge:'bg-teal/15 text-teal border-teal/30', dot:'bg-teal', line:'text-teal' }
+  };
+  grid.innerHTML = '';
+  APP_DATA.timeline.forEach((p, i) => {
+    const col = c[p.color] || c.accent;
+    const targets = p.targets.map(t => `<li class="flex items-start gap-2"><span class="mt-1.5 w-1.5 h-1.5 rounded-full ${col.dot} shrink-0"></span><span>${t}</span></li>`).join('');
+    const el = document.createElement('div');
+    el.className = 'card-glow rounded-2xl bg-dark-700 p-5';
+    el.innerHTML = `
+      <div class="flex flex-wrap items-center gap-2 mb-2">
+        <span class="text-[10px] font-bold px-2.5 py-1 rounded-full border ${col.badge}">${p.phase}</span>
+        <h3 class="text-base font-bold text-white">${p.name}</h3>
+      </div>
+      <p class="text-[11px] font-semibold ${col.line} mb-2">${p.dates}</p>
+      <p class="text-sm text-gray-300 mb-3">${p.goal}</p>
+      <ul class="text-[12px] text-gray-300 space-y-1 mb-3">${targets}</ul>
+      <p class="text-[11px] text-gray-500 leading-relaxed"><span class="font-semibold text-gray-400">How:</span> ${p.how}</p>
+    `;
+    grid.appendChild(el);
+  });
+}
+
 // ====== MILESTONES ======
 function renderMilestones() {
+  renderTimeline();
   renderScan();
   renderMeasure();
   const grid = document.getElementById('milestones-grid');
