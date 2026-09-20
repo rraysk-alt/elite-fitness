@@ -180,6 +180,18 @@ const APP_DATA = {
       { label:"Visceral Fat", value:"4.0", target:"low ✓", note:"healthy — keep it there" }
     ]
   },
+  measurements: {
+    date: "20 Sep 2026",
+    navy_bf: "~19% (tape) vs 15.4% (scan) → true ~16–18%",
+    items: [
+      { label:"Flexed Arm", value:"38.5 cm", target:"~43 cm", note:"+4–5 cm = 'jacked' for your wrist" },
+      { label:"Relaxed Arm", value:"33.8 cm", target:"grow", note:"near-pure lean muscle" },
+      { label:"Waist (navel)", value:"95 cm", target:"~88 cm", note:"−7 cm unlocks the taper" },
+      { label:"Chest", value:"113 cm", target:"~114 ✓", note:"at frame ideal" },
+      { label:"Neck", value:"42 cm", target:"~42 ✓", note:"proportional" },
+      { label:"Wrist", value:"17.5 cm", target:"frame ref", note:"medium-large frame" }
+    ]
+  },
   park_sessions: [
     {
       tag: "PARK DAY 1 · WED", badgeClass: "bg-accent/20 text-accent-light",
@@ -297,6 +309,10 @@ const APP_DATA = {
     <h2 class="text-lg font-bold text-white mb-1">Body Composition Baseline</h2>
     <p class="text-xs text-gray-500 mb-4">Anovator scan · <span class="text-teal">19 Sep 2026</span> · rescan in the same conditions every 3–4 weeks and track the trend</p>
     <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8" id="scan-grid"></div>
+
+    <h2 class="text-lg font-bold text-white mb-1">Tape Measurements</h2>
+    <p class="text-xs text-gray-500 mb-4" id="measure-sub"></p>
+    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8" id="measure-grid"></div>
 
     <h2 class="text-lg font-bold text-white mb-1">6-Month Strength Milestones</h2>
     <p class="text-xs text-gray-500 mb-6">Progressive overload targets over 24 weeks</p>
@@ -541,9 +557,30 @@ function renderScan() {
   });
 }
 
+// ====== TAPE MEASUREMENTS ======
+function renderMeasure() {
+  const grid = document.getElementById('measure-grid');
+  if (!grid || !APP_DATA.measurements) return;
+  const sub = document.getElementById('measure-sub');
+  if (sub) sub.innerHTML = `${APP_DATA.measurements.date} · Body-fat cross-check: <span class="text-amber font-semibold">${APP_DATA.measurements.navy_bf}</span>`;
+  grid.innerHTML = '';
+  APP_DATA.measurements.items.forEach(m => {
+    const el = document.createElement('div');
+    el.className = 'card-glow rounded-xl bg-dark-700 p-4';
+    el.innerHTML = `
+      <p class="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1">${m.label}</p>
+      <p class="text-xl font-black text-white leading-none">${m.value}</p>
+      <p class="text-[10px] text-teal font-semibold mt-1.5">Target: ${m.target}</p>
+      <p class="text-[10px] text-gray-500 mt-0.5 leading-snug">${m.note}</p>
+    `;
+    grid.appendChild(el);
+  });
+}
+
 // ====== MILESTONES ======
 function renderMilestones() {
   renderScan();
+  renderMeasure();
   const grid = document.getElementById('milestones-grid');
   grid.innerHTML = '';
   const colors = { bench: ['from-rose to-pink-600','bg-rose'], squat: ['from-accent to-blue-600','bg-accent'], deadlift: ['from-teal to-emerald-600','bg-teal'] };
