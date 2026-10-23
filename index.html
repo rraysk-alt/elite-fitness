@@ -169,15 +169,15 @@ const APP_DATA = {
     deadlift: { current: 130, target: 150, label: "Deadlift", increase: "15%" }
   },
   body_scan: {
-    date: "19 Sep 2026",
+    date: "23 Oct 2026 (vs 19 Sep baseline)",
     source: "Anovator bioimpedance",
     metrics: [
-      { label:"Body Fat", value:"15.4%", target:"~12%", note:"abs become visible" },
-      { label:"Skeletal Muscle", value:"42.5 kg", target:"hold", note:"protect while cutting" },
-      { label:"Waist-Hip Ratio", value:"0.94", target:"≤ 0.90", note:"love-handle marker" },
-      { label:"Trunk Fat", value:"8.9 kg", target:"↓", note:"your only real fat depot" },
-      { label:"Weight", value:"91.2 kg", target:"~87 kg", note:"at similar muscle" },
-      { label:"Visceral Fat", value:"4.0", target:"low ✓", note:"healthy — keep it there" }
+      { label:"Body Fat", value:"13.8%", target:"~12%", note:"↓ from 15.4% — on track" },
+      { label:"Skeletal Muscle", value:"42.7 kg", target:"hold", note:"↑ from 42.5 — muscle preserved ✅" },
+      { label:"Waist-Hip Ratio", value:"0.93", target:"≤ 0.90", note:"↓ from 0.94" },
+      { label:"Trunk Fat", value:"7.3 kg", target:"↓", note:"↓ from 8.9 (−1.6 kg) — all loss off the waist" },
+      { label:"Weight", value:"89.8 kg", target:"~87 kg", note:"↓ from 91.2 (−1.4, all fat)" },
+      { label:"Visceral Fat", value:"3.0", target:"low ✓", note:"↓ from 4.0" }
     ]
   },
   measurements: {
@@ -330,8 +330,8 @@ const APP_DATA = {
     <p class="text-xs text-gray-500 mb-4">Cut lean now → build arms through winter → mini-cut for summer. The whole map.</p>
     <div class="grid gap-4 mb-9" id="timeline-grid"></div>
 
-    <h2 class="text-lg font-bold text-white mb-1">Body Composition Baseline</h2>
-    <p class="text-xs text-gray-500 mb-4">Anovator scan · <span class="text-teal">19 Sep 2026</span> · rescan in the same conditions every 3–4 weeks and track the trend</p>
+    <h2 class="text-lg font-bold text-white mb-1">Body Composition — Progress</h2>
+    <p class="text-xs text-gray-500 mb-4"><span class="text-teal">23 Oct 2026</span> vs 19 Sep baseline · −1.6 kg fat, muscle held — textbook cut. Rescan every 3–4 wks.</p>
     <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8" id="scan-grid"></div>
 
     <h2 class="text-lg font-bold text-white mb-1">Tape Measurements</h2>
