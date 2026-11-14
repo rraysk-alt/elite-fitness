@@ -149,18 +149,20 @@ const APP_DATA = {
         { name:"Dumbbell Lateral Raises", superset_id:"Superset 6A", sets:4, reps:15, target_weight:"8–10kg DBs", tempo:"2-0-X-1", rest_seconds:0, ui_tips:"Slight forward hinge. Drive outward, pinkies high.", video:"https://www.youtube.com/watch?v=4hTUCDUQaNA" },
         { name:"Rear Delt Flyes (Bent Over)", superset_id:"Superset 6B", sets:4, reps:15, target_weight:"6–8kg DBs", tempo:"2-0-X-1", rest_seconds:60, ui_tips:"Back parallel to floor. Don't pinch shoulder blades.", video:"https://www.youtube.com/watch?v=Lec8GC1SiS8" },
         { name:"EZ-Bar Skull Crushers", superset_id:"Finisher A", sets:3, reps:"12 (lengthened partials final)", target_weight:"Moderate", tempo:"3-1-X-0", rest_seconds:0, ui_tips:"Tilt arms back, lower past the skull for max long-head stretch. Add 4–5 half-reps from the bottom on the last set.", video:"https://www.youtube.com/watch?v=NIWKqcmpBug" },
-        { name:"Cable Straight-Bar Curls", superset_id:"Finisher B", sets:3, reps:"12-15", target_weight:"Moderate", tempo:"2-0-X-2", rest_seconds:45, ui_tips:"Elbows glued. 2s peak squeeze every rep.", video:"https://www.youtube.com/watch?v=d7friQusjF8" }
+        { name:"Cable Straight-Bar Curls", superset_id:"Finisher B", sets:3, reps:"12-15", target_weight:"Moderate", tempo:"2-0-X-2", rest_seconds:45, ui_tips:"Elbows glued. 2s peak squeeze every rep.", video:"https://www.youtube.com/watch?v=d7friQusjF8" },
+        { name:"Weighted Cable Crunch", superset_id:"Core", sets:3, reps:"12-15", target_weight:"Progressive", tempo:"2-0-2-1", rest_seconds:45, ui_tips:"Abs are a muscle — load them to GROW thickness. Round the spine down, crunch ribs to hips.", video:"https://www.youtube.com/watch?v=2fbjs4xvDQM" },
+        { name:"Hanging Leg Raises", superset_id:"Core", sets:3, reps:"12-15", target_weight:"Bodyweight", tempo:"2-0-2-1", rest_seconds:45, ui_tips:"Lower abs. Curl the pelvis up, no swing. Add ankle weights as you progress.", video:"https://www.youtube.com/watch?v=Pr1ieGZ5atk" }
       ]
     }
   },
   nutrition: {
-    macros: { calories: "Training ~2,250 kcal · Rest ~1,900 kcal (~450 deficit)", protein: "180–200g daily", carbs: "Training ~200g · Rest ~120g (soluble-fibre first)", sugar_rule: "Minimize added sugar (liver) · no alcohol", hydration: "Water + sea salt on waking · 2–3 black coffees (liver) · +300mg magnesium at night · NO iron supplements" },
-    shake: { recipe: "1 scoop whey + high-protein milk + berries (no PB)", lifting: "Within 30–45 min post-workout — a snack ON TOP of meals", cardio: "Optional", rest: "Skip — solid food only" },
+    macros: { calories: "Training ~2,900 kcal · Rest ~2,500 kcal (slight surplus)", protein: "180–200g daily", carbs: "Up around training — fuel growth (soluble-fibre base kept)", sugar_rule: "Minimize added sugar (liver) · no alcohol", hydration: "Water + sea salt on waking · 2–3 black coffees (liver) · +300mg magnesium at night · NO iron supplements" },
+    shake: { recipe: "1 scoop whey + high-protein milk + berries (+ banana on training days)", lifting: "Within 30–45 min post-workout — on top of meals", cardio: "Optional", rest: "Skip — solid food only" },
     meals: {
-      breakfast: { lifting: "60g oats + 1 scoop whey + berries (β-glucan fibre → LDL)", rest: "40g oats + 1 scoop whey + berries" },
-      lunch: { protein: "200g chicken/turkey or fish", veggies: "Spinach + big salad", lifting_carbs: "150g cooked lentils + 1 tbsp EVOO (fibre → LDL)", rest_carbs: "Lentils, smaller portion" },
-      snack: { name: "Skyr + Walnuts", desc: "200g 0% skyr", extras: "25g walnuts", tip: "Nuts ≈ 5% LDL drop; skyr = slow protein, kills cravings" },
-      dinner: { protein: "Rotate: oily fish 2× (salmon/sardines), white fish/prawns 1×, chicken/turkey 2×, LEAN red meat ≤2× (200g sirloin)", veggies: "Greens, unlimited", fats: "1 tsp EVOO", carb_rule: "Training: 250g potato/sweet potato. Rest: halve it. Keep red meat lean & ≤2×/wk (LDL + ferritin)." }
+      breakfast: { lifting: "80g oats + 1 scoop whey + berries + banana (fuel the lift)", rest: "60g oats + 1 scoop whey + berries" },
+      lunch: { protein: "200g chicken/turkey or fish", veggies: "Spinach + big salad", lifting_carbs: "200g cooked lentils or rice + 1 tbsp EVOO", rest_carbs: "Lentils/rice, moderate portion" },
+      snack: { name: "Skyr + Walnuts", desc: "200g 0% skyr", extras: "25g walnuts + a piece of fruit", tip: "Nuts ≈ 5% LDL drop; skyr = slow protein between meals" },
+      dinner: { protein: "Rotate: oily fish 2× (salmon/sardines), white fish/prawns 1×, chicken/turkey 2×, LEAN red meat ≤2× (200g sirloin)", veggies: "Greens, unlimited", fats: "1 tbsp EVOO", carb_rule: "Training: 300–350g potato/rice. Rest: ~200g. Carbs fuel the growth — keep red meat lean & ≤2×/wk (LDL + ferritin)." }
     }
   },
   milestones: {
@@ -186,7 +188,7 @@ const APP_DATA = {
     items: [
       { label:"Flexed Arm", value:"38.5 cm", target:"~43 cm", note:"+4–5 cm = 'jacked' for your wrist" },
       { label:"Relaxed Arm", value:"33.8 cm", target:"grow", note:"near-pure lean muscle" },
-      { label:"Waist (navel)", value:"91 cm", target:"~88 cm", note:"95→91, holding (14 Nov); 3 cm to go" },
+      { label:"Waist (navel)", value:"~88–91 cm", target:"GUARDRAIL <92–93", note:"Cut target hit. Now just keep it under ~92–93 during the bulk." },
       { label:"Chest", value:"113 cm", target:"~114 ✓", note:"at frame ideal" },
       { label:"Neck", value:"42 cm", target:"~42 ✓", note:"proportional" },
       { label:"Wrist", value:"17.5 cm", target:"frame ref", note:"medium-large frame" }
@@ -194,16 +196,16 @@ const APP_DATA = {
   },
   timeline: [
     {
-      phase: "PHASE 1", name: "Cut — Get Lean", dates: "Now → late Nov 2026 · ~10 wks", color: "rose",
-      goal: "Strip the waist and reveal what you've already built.",
-      targets: ["Waist 95 → ≤ 88 cm", "Body fat ~17% → ~12–13%", "Hold arms ≥ 38 cm + current lifts"],
-      how: "~450 kcal deficit · 190g protein · train to maintain · 8–10k steps · protect sleep"
+      phase: "PHASE 1 ✓ DONE", name: "Cut — Lean (complete)", dates: "19 Sep → 14 Nov 2026", color: "rose",
+      goal: "Revealed the abs, stripped the waist, held the muscle. Job done.",
+      targets: ["Waist 95 → ~88–90 cm ✓", "Body fat 15.4 → ~13.8% ✓", "Muscle held 42.5 → 42.7 kg ✓"],
+      how: "Moderate deficit + high protein — nailed it. Abs now visible."
     },
     {
-      phase: "PHASE 2", name: "Lean Bulk — Build the Arms", dates: "Dec 2026 → Apr 2027 · ~5 months", color: "accent",
-      goal: "Add real size on a lean base — arms & delts, where every cm now shows.",
-      targets: ["Flexed arm 38.5 → ~41–42 cm", "FFMI 21 → ~22–23", "Keep waist under 92 cm"],
-      how: "Slight surplus (~+250 kcal) · progressive overload · arms 3×/wk · ease off if waist creeps"
+      phase: "PHASE 2 · ACTIVE NOW", name: "Lean Bulk — Build the Arms", dates: "Nov 2026 → Apr 2027", color: "accent",
+      goal: "Add real size — arms, delts, 'muscular in clothes'. Every cm now shows.",
+      targets: ["Flexed arm 38.5 → ~41–42 cm", "FFMI 21 → ~23 · chase the PRs", "Waist = GUARDRAIL: keep < 92–93 cm"],
+      how: "Slight surplus (~+250–300 kcal) · progressive overload · arms 3×/wk + abs · keep food clean (LDL/liver)"
     },
     {
       phase: "PHASE 3", name: "Mini-Cut — Summer Reveal", dates: "Apr → early Jun 2027 · ~6–8 wks", color: "teal",
@@ -313,7 +315,7 @@ const APP_DATA = {
     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
       <div>
         <h2 class="text-lg font-bold text-white">Nutrition Blueprint</h2>
-        <p class="text-xs text-gray-500 mt-0.5">Moderate cut + <span class="text-teal font-semibold">LDL/liver-friendly</span> (Mediterranean/Portfolio) · Protein <span class="text-teal font-semibold">180–200g</span> · Carbs <span class="text-amber font-semibold">cycled (train ~200g / rest ~120g)</span> · ~450 kcal deficit</p>
+        <p class="text-xs text-gray-500 mt-0.5">Lean bulk — <span class="text-teal font-semibold">build arms</span>, LDL/liver-friendly · Protein <span class="text-teal font-semibold">180–200g</span> · Carbs <span class="text-amber font-semibold">up around training</span> · ~+250–300 kcal surplus</p>
       </div>
       <div class="nutrition-toggle flex items-center" id="nutrition-toggle">
         <div class="slider" id="toggle-slider" style="left:3px; width:118px;"></div>
@@ -346,8 +348,8 @@ const APP_DATA = {
     <p class="text-xs text-gray-500 mb-4" id="measure-sub"></p>
     <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8" id="measure-grid"></div>
 
-    <h2 class="text-lg font-bold text-white mb-1">Strength Targets — Phase 2 (Build)</h2>
-    <p class="text-xs text-gray-500 mb-6">Hold these through the cut, then chase them in the winter bulk</p>
+    <h2 class="text-lg font-bold text-white mb-1">Strength Targets — Phase 2 (Build) · LIVE</h2>
+    <p class="text-xs text-gray-500 mb-6">Bulk is on — chase these now with progressive overload</p>
     <div class="grid gap-4" id="milestones-grid"></div>
   </section>
 
